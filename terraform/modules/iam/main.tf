@@ -38,9 +38,14 @@ resource "aws_iam_role" "ss-app-role" {
   })
 }
 
-resource "aws_iam_role_policy_attachment" "ss-app-role_policy_attachment" {
+resource "aws_iam_role_policy_attachment" "ss-app-role-s3_policy_attachment" {
   role       = "${aws_iam_role.ss-app-role.name}"
   policy_arn = "${aws_iam_policy.ss-app-s3-policy.arn}"
+}
+
+resource "aws_iam_role_policy_attachment" "ss-app-role-cloudwatch_policy_attachment" {
+  role       = "${aws_iam_role.ss-app-role.name}"
+  policy_arn = "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
 }
 
 resource "aws_iam_instance_profile" "ss-app-instance_profile" {
