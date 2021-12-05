@@ -22,7 +22,7 @@ module "iam" {
   image-bucket-arn = module.s3.image-bucket-arn
 }
 
-module "my_vpc" {
+module "vpc" {
   source              = "./modules/vpc"
   vpc_cidr            = "172.31.0.0/16"
   public_sub_1_cidr   = "172.31.1.0/24"
@@ -37,4 +37,12 @@ module "my_vpc" {
   availability_zone_1 = "${var.region}a"
   availability_zone_2 = "${var.region}b"
   availability_zone_3 = "${var.region}c"
+}
+
+module "rds" {
+  source = "./modules/rds"
+  db_instance_class = "db.t2.micro"
+  db_admin_username = "admin"
+  db_admin_password =  var.db_admin_password
+  db_sg_id = module.vpc.db_security_group_id
 }

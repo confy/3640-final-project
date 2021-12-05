@@ -42,6 +42,10 @@ output "private_security_group_id" {
     value = aws_security_group.private_sg.id
 }
 
+output "db_security_group_id" {
+    value = aws_security_group.private_sg.id
+}
+
 output "vpc_id" {
     value = aws_vpc.custom_vpc.id
 }
