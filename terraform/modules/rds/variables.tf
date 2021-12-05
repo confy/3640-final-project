@@ -21,3 +21,7 @@ variable "db_sg_id" {
     type = string
 }
 
+variable "db_subnet_ids" {
+    description = "The subnet ids for the DB"
+    type = list
+}

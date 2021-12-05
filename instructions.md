@@ -5,7 +5,7 @@ This final project involves setting up Social Something as a fully scalable web 
 * Packer ✔️
 * Terraform
 * Auto Scaling Group
-* RDS
+* RDS ✔️
 * ALB
 * VPC custom ✔️
 * cloud watch ✔️

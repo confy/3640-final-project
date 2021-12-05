@@ -1,8 +1,18 @@
+resource "aws_db_subnet_group" "private_db" {
+  name = "private_db"
+  subnet_ids = var.db_subnet_ids
+  tags = {
+    Name = "private db subnet group"
+  }
+}
+
+
 resource "aws_db_instance" "ss-database" {
   identifier             = "ss-database"
   allocated_storage      = 20
   engine                 = "mysql"
   engine_version         = "8.0.26"
+  db_subnet_group_name   = aws_db_subnet_group.private_db.name
   instance_class         = var.db_instance_class
   username               = var.db_admin_username
   password               = var.db_admin_password
