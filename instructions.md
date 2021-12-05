@@ -2,7 +2,7 @@
 
 This final project involves setting up Social Something as a fully scalable web application using all of the following:
 
-* Packer
+* Packer ✔️
 * Terraform
 * Auto Scaling Group
 * RDS
@@ -16,7 +16,7 @@ This final project involves setting up Social Something as a fully scalable web 
 
 Kind of like week 4, but way more difficult: http://acit-3640-fall-2021.s3-website-us-west-1.amazonaws.com/week_4/
 
-## Packer
+## Packer ✔️ 
 
 * Use packer to setup the ami for the social something app. 
 * Commit your packer code into git and push to github. Remember to add the correct gitignore.
