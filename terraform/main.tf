@@ -15,6 +15,7 @@ provider "aws" {
 
 module "s3" {
   source = "./modules/s3"
+  bucket_name = "ss-final-image-bucket"
 }
 
 module "iam" {
@@ -50,4 +51,15 @@ module "rds" {
     module.vpc.private_db_sub_2_id,
     module.vpc.private_db_sub_3_id,
   ]
+}
+
+module "compute" {
+  source = "./modules/compute"
+  region = var.region
+  private_availability_zones = ["${var.region}a", "${var.region}b", "${var.region}c"]
+  bucket_name = var.bucket_name
+  db_user = "web-app"
+  db_name = "social_something"
+  db_password = var.db_password
+  db_host = module.rds.db_host
 }

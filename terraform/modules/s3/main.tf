@@ -1,4 +1,4 @@
-resource "aws_s3_bucket" "ss-final-image-bucket" {
-  bucket        = "ss-final-image-bucket"
+resource "aws_s3_bucket" "ss_image_bucket" {
+  bucket        = var.bucket_name
   force_destroy = true
 }
