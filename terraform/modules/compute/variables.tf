@@ -33,3 +33,12 @@ variable "private_availability_zones" {
     description = "Private Availability Zones"
     type = list
 }
+
+variable "private_security_group_id" {
+    description = "Private Security Group ID"
+    type = string
+}
+variable "instance_profile_name" {
+    description = "SS Instance Profile Name"
+    type = string
+}

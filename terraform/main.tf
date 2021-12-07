@@ -14,7 +14,7 @@ provider "aws" {
 }
 
 module "s3" {
-  source = "./modules/s3"
+  source      = "./modules/s3"
   bucket_name = "ss-final-image-bucket"
 }
 
@@ -54,12 +54,24 @@ module "rds" {
 }
 
 module "compute" {
-  source = "./modules/compute"
-  region = var.region
+  source                     = "./modules/compute"
+  region                     = var.region
+  instance_profile_name      = module.iam.instance_profile_name
   private_availability_zones = ["${var.region}a", "${var.region}b", "${var.region}c"]
-  bucket_name = var.bucket_name
-  db_user = "web-app"
-  db_name = "social_something"
-  db_password = var.db_password
-  db_host = module.rds.db_host
+  private_security_group_id = module.vpc.private_security_group_id
+  bucket_name                = var.bucket_name
+  db_user                    = "web-app"
+  db_name                    = "social_something"
+  db_password                = var.db_password
+  db_host                    = module.rds.db_host
+}
+
+module "lb" {
+  source                   = "./modules/lb"
+  public_security_group_id = module.vpc.public_security_group_id
+  public_subnet_ids = [
+    module.vpc.public_sub_1_id,
+    module.vpc.public_sub_2_id,
+    module.vpc.public_sub_3_id
+  ]
 }

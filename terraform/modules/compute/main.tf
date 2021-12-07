@@ -24,6 +24,9 @@ resource "aws_launch_template" "ss_launch_template" {
   name_prefix = "ss-app"
   image_id = "${data.aws_ami.ss_ami.id}"
   instance_type = "t2.micro"
+  user_data = "${data.cloudinit_config.app_config.rendered}"
+  iam_instance_profile {name = var.instance_profile_name}
+  vpc_security_group_ids = [var.private_security_group_id]
 }
 
 resource "aws_autoscaling_group" "ss-asg" {
