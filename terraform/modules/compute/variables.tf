@@ -38,6 +38,12 @@ variable "private_security_group_id" {
     description = "Private Security Group ID"
     type = string
 }
+
+variable "private_subnet_ids" {
+    description = "Private Subnet IDs"
+    type = list
+} 
+
 variable "instance_profile_name" {
     description = "SS Instance Profile Name"
     type = string

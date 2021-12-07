@@ -59,6 +59,11 @@ module "compute" {
   instance_profile_name      = module.iam.instance_profile_name
   private_availability_zones = ["${var.region}a", "${var.region}b", "${var.region}c"]
   private_security_group_id = module.vpc.private_security_group_id
+  private_subnet_ids = [
+    module.vpc.private_sub_1_id,
+    module.vpc.private_sub_2_id,
+    module.vpc.private_sub_3_id,
+  ]
   bucket_name                = var.bucket_name
   db_user                    = "web-app"
   db_name                    = "social_something"
@@ -68,6 +73,7 @@ module "compute" {
 
 module "lb" {
   source                   = "./modules/lb"
+  vpc_id = module.vpc.vpc_id
   public_security_group_id = module.vpc.public_security_group_id
   public_subnet_ids = [
     module.vpc.public_sub_1_id,

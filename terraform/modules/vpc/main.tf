@@ -181,6 +181,8 @@ resource "aws_security_group" "private_sg" {
 resource "aws_security_group" "db_sg" {
   name        = "db_sg"
   description = "allow on port 3306 from any ip on ${var.vpc_cidr}"
+  vpc_id = aws_vpc.custom_vpc.id
+
   ingress {
     from_port        = 3306
     to_port          = 3306

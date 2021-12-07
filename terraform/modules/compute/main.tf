@@ -30,7 +30,6 @@ resource "aws_launch_template" "ss_launch_template" {
 }
 
 resource "aws_autoscaling_group" "ss-asg" {
-    availability_zones = var.private_availability_zones
     name                = "ss-asg-%d"
     max_size            = 3
     min_size            = 3
@@ -39,6 +38,7 @@ resource "aws_autoscaling_group" "ss-asg" {
     desired_capacity    = 3
     force_delete        = true
     termination_policies = ["OldestInstance"]
+    vpc_zone_identifier = var.private_subnet_ids
     launch_template {
         id      = aws_launch_template.ss_launch_template.id
         version = "$Latest"
