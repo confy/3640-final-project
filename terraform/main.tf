@@ -25,6 +25,7 @@ module "iam" {
 
 module "vpc" {
   source                = "./modules/vpc"
+  region                = var.region
   vpc_cidr              = "172.31.0.0/16"
   public_sub_1_cidr     = "172.31.1.0/24"
   public_sub_2_cidr     = "172.31.2.0/24"
@@ -75,6 +76,7 @@ module "compute" {
 module "lb" {
   source                   = "./modules/lb"
   vpc_id = module.vpc.vpc_id
+  ssl_cert_arn = module.route53.ssl_cert_arn
   public_security_group_id = module.vpc.public_security_group_id
   public_subnet_ids = [
     module.vpc.public_sub_1_id,
@@ -90,5 +92,6 @@ module "route53" {
   domain_name = "racistzebra.com"
   subdomain_name = "final"
   alb_hostname = module.lb.alb_hostname
+  alb_zone_id = module.lb.alb_zone_id
 }
 

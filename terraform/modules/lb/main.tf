@@ -19,6 +19,20 @@ resource "aws_lb_listener" "ss_alb_listener" {
 
 }
 
+resource "aws_lb_listener" "ss_alb_listener_https" {
+    load_balancer_arn = aws_lb.ss_lb.arn
+    port = "443"
+    protocol = "HTTPS"
+    ssl_policy = "ELBSecurityPolicy-2015-05"
+    certificate_arn = var.ssl_cert_arn
+
+    default_action {
+        target_group_arn = aws_lb_target_group.ss_target_group.arn
+        type = "forward"
+    }
+
+}
+
 
 resource "aws_lb_target_group" "ss_target_group" {
   name     = "ss-target-group"

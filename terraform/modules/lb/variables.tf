@@ -12,3 +12,8 @@ variable "vpc_id" {
     description = "VPC ID"
     type = string
 }
+
+variable "ssl_cert_arn" {
+    description = "SSL Certificate ARN"
+    type = string
+}

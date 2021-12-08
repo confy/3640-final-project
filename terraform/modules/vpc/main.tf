@@ -139,6 +139,13 @@ resource "aws_route_table_association" "public_3_rt_a" {
 }
 
 
+resource "aws_route_table" "private_rt" {
+  vpc_id = aws_vpc.custom_vpc.id
+
+  tags = {
+    Name = "Private Route Table"
+  }
+}
 resource "aws_security_group" "public_sg" {
   name   = "HTTP and SSH"
   vpc_id = aws_vpc.custom_vpc.id
@@ -146,6 +153,13 @@ resource "aws_security_group" "public_sg" {
   ingress {
     from_port   = 80
     to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 443
+    to_port     = 443
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -195,4 +209,14 @@ resource "aws_security_group" "db_sg" {
     protocol         = "-1"
     cidr_blocks      = ["0.0.0.0/0"]
   }
+}
+
+resource "aws_vpc_endpoint" "s3" {
+  vpc_id       = aws_vpc.custom_vpc.id
+  service_name = "com.amazonaws.${var.region}.s3"
+}
+
+resource "aws_vpc_endpoint_route_table_association" "s3" {
+  vpc_endpoint_id = aws_vpc_endpoint.s3.id
+  route_table_id  = aws_route_table.private_rt.id
 }
