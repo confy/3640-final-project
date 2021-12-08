@@ -43,7 +43,7 @@ output "private_security_group_id" {
 }
 
 output "db_security_group_id" {
-    value = aws_security_group.private_sg.id
+    value = aws_security_group.db_sg.id
 }
 
 output "vpc_id" {
