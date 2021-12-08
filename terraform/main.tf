@@ -82,3 +82,13 @@ module "lb" {
     module.vpc.public_sub_3_id
   ]
 }
+
+
+module "route53" {
+  source = "./modules/route53"
+  #joke domain :)
+  domain_name = "racistzebra.com"
+  subdomain_name = "final"
+  alb_hostname = module.lb.alb_hostname
+}
+
