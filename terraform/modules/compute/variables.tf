@@ -44,6 +44,10 @@ variable "private_subnet_ids" {
     type = list
 } 
 
+variable "target_group_arn" {
+    description = "Target Group ARN"
+    type = string
+}
 variable "instance_profile_name" {
     description = "SS Instance Profile Name"
     type = string

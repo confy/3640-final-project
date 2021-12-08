@@ -64,6 +64,7 @@ module "compute" {
     module.vpc.private_sub_2_id,
     module.vpc.private_sub_3_id,
   ]
+  target_group_arn = module.lb.target_group_arn
   bucket_name                = var.bucket_name
   db_user                    = "web-app"
   db_name                    = "social_something"

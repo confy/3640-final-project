@@ -39,6 +39,7 @@ resource "aws_autoscaling_group" "ss-asg" {
     force_delete        = true
     termination_policies = ["OldestInstance"]
     vpc_zone_identifier = var.private_subnet_ids
+    target_group_arns = [var.target_group_arn]
     launch_template {
         id      = aws_launch_template.ss_launch_template.id
         version = "$Latest"
