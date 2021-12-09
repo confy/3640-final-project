@@ -59,24 +59,24 @@ module "compute" {
   region                     = var.region
   instance_profile_name      = module.iam.instance_profile_name
   private_availability_zones = ["${var.region}a", "${var.region}b", "${var.region}c"]
-  private_security_group_id = module.vpc.private_security_group_id
+  private_security_group_id  = module.vpc.private_security_group_id
   private_subnet_ids = [
     module.vpc.private_sub_1_id,
     module.vpc.private_sub_2_id,
     module.vpc.private_sub_3_id,
   ]
   target_group_arn = module.lb.target_group_arn
-  bucket_name                = var.bucket_name
-  db_user                    = "web-app"
-  db_name                    = "social_something"
-  db_password                = var.db_password
-  db_host                    = module.rds.db_host
+  bucket_name      = var.bucket_name
+  db_user          = "web-app"
+  db_name          = "social_something"
+  db_password      = var.db_password
+  db_host          = module.rds.db_host
 }
 
 module "lb" {
   source                   = "./modules/lb"
-  vpc_id = module.vpc.vpc_id
-  ssl_cert_arn = module.route53.ssl_cert_arn
+  vpc_id                   = module.vpc.vpc_id
+  ssl_cert_arn             = module.route53.ssl_cert_arn
   public_security_group_id = module.vpc.public_security_group_id
   public_subnet_ids = [
     module.vpc.public_sub_1_id,
@@ -89,9 +89,9 @@ module "lb" {
 module "route53" {
   source = "./modules/route53"
   #joke domain :)
-  domain_name = "racistzebra.com"
+  domain_name    = "racistzebra.com"
   subdomain_name = "final"
-  alb_hostname = module.lb.alb_hostname
-  alb_zone_id = module.lb.alb_zone_id
+  alb_hostname   = module.lb.alb_hostname
+  alb_zone_id    = module.lb.alb_zone_id
 }
 

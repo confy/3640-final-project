@@ -13,7 +13,7 @@ resource "aws_iam_policy" "ss-app-s3-policy" {
           "s3:PutObject"
         ],
         "Effect" : "Allow",
-        "Resource" : "${var.image-bucket-arn}"
+        "Resource" : "${var.image-bucket-arn}/*"
       }
     ]
   })

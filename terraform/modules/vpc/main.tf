@@ -1,7 +1,6 @@
 resource "aws_vpc" "custom_vpc" {
   cidr_block = var.vpc_cidr
   enable_dns_hostnames = true
-
   tags = {
     Name = "Some Custom VPC"
   }
@@ -219,4 +218,36 @@ resource "aws_vpc_endpoint" "s3" {
 resource "aws_vpc_endpoint_route_table_association" "s3" {
   vpc_endpoint_id = aws_vpc_endpoint.s3.id
   route_table_id  = aws_route_table.private_rt.id
+}
+
+resource "aws_security_group" "cloudwatch_sg" {
+  name   = "cloudwatch_sg"
+  vpc_id = aws_vpc.custom_vpc.id
+
+  ingress {
+    from_port   = 1
+    to_port     = 65535
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = -1
+    cidr_blocks = ["0.0.0.0/0"]
+}
+
+}
+
+resource "aws_vpc_endpoint" "cloudwatch" {
+  vpc_id       = aws_vpc.custom_vpc.id
+  service_name = "com.amazonaws.${var.region}.logs"
+  security_group_ids = [aws_security_group.cloudwatch_sg.id]
+  vpc_endpoint_type = "Interface"
+  subnet_ids = [aws_subnet.private_subnet_1.id, 
+                aws_subnet.private_subnet_2.id, 
+                aws_subnet.private_subnet_3.id
+          ]
+  private_dns_enabled = true
 }
