@@ -1,9 +1,19 @@
 # 3640-final-project
-cloud computing final project
+My final term project for ACIT-3640-Cloud Computing - deploying [Social Something](https://github.com/sam-meech-ward-bcit/social_something_full) as a fully scabale web application using Terraform and Packer on AWS.
 
-Everything is provisioned automatically except for the tables and the user in the RDS database. 
+# Infrastructure Diagram
+![infrastructure diagram](https://raw.githubusercontent.com/confy/3640-final-project/main/infra_diagram.png)
 
-Here are the steps for that:
+# RDS
+
+
+The first time the RDS is created, it will need to be populated manually.
+
+After this first time, a snapshot of the database will need to be created. 
+
+From that point on, the RDS will be populated automatically. 
+
+Here are the steps for creating the User and populating the Database/Tables:
 
 * Create a new ec2 instance with ssh access in a public subnet in our custom VPC
 * SSH into the instance
